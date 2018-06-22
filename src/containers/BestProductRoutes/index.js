@@ -6,20 +6,24 @@ import AccessTime from '@material-ui/icons/AccessTime';
 import DirectionsCar from '@material-ui/icons/DirectionsCar';
 import * as React from 'react';
 import { connect } from 'react-redux';
-
+import RouteMapDialog from '../MapRoutes'
 import { getProductBestRoutes } from '../../modules/productbestroutes/actions'
 class ProductRoute extends React.Component {
-    
+    constructor(props) {
+        super();
+        this.state = {
+            prodRoutePoints: '',
+            openRouteDialog: false
+        }
+    }
     render() {
         let { distance, duration, total, classes, items, route } = this.props;
         return (
             <Paper className={classes.paper} onClick={() => {
-                var decodedPath = window.google.maps.geometry.encoding.decodePath(route.points);
-               
-                console.info('decodedLevels', decodedPath);
-                console.info('kkk', "https://www.google.com/maps/?path=" + encodeURIComponent(route.points))
-                window.open("https://www.google.com/maps/?path="
-                    + encodeURIComponent(route.points), 'location=yes');
+                this.setState({
+                    prodRoutePoints: route.points,
+                    openRouteDialog: true
+                });
             }}>
                 <Table className={classes.table}>
                     <TableBody>
@@ -36,9 +40,10 @@ class ProductRoute extends React.Component {
                             </TableCell>
                         </TableRow>
                     </TableBody>
-                </Table>
-                <Table className={classes.table}>
 
+                </Table>
+                
+                <Table className={classes.table}>
                     <TableBody>
                         {items.map(item => {
                             return (
@@ -58,6 +63,16 @@ class ProductRoute extends React.Component {
                         })}
                     </TableBody>
                 </Table>
+
+                {this.state.openRouteDialog ?
+                    <RouteMapDialog location={this.props.userLocation} path={this.state.prodRoutePoints} onClose={() => {
+                        this.setState({
+                            prodRoutePoints: '',
+                            openRouteDialog: false
+                        });
+                    }} />
+                    : null
+                }
             </Paper>
         )
     }
@@ -137,9 +152,10 @@ const styles = (theme) => createStyles({
 });
 
 function mapStateToProps(state) {
-    let { productbestroutes={} } = state;
+    let { productbestroutes={}, user } = state;
 
     return {
+        userLocation: user.location,
         productbestroutes: productbestroutes.data || []
     };
   }
