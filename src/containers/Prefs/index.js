@@ -69,7 +69,7 @@ class UserPrefs extends React.Component {
         <div className={classes.selection}>
           <Store className={classes.icon} />
           <div className={classes.select} >
-            <Slider step={1} min={1} max={20} value={distancelimit} aria-labelledby="label"
+            <Slider step={1} min={1} max={100} value={distancelimit} aria-labelledby="label"
               onChange={(event, distancelimit) => {
                 let { timeSavingRatio } = this.props;
                 this.props.updateUserPrefs({ timeSavingRatio, distancelimit })
