@@ -16,6 +16,10 @@ import Slide from '@material-ui/core/Slide';
 import './styles.css'
 
 class MapRoutes extends React.Component {
+  constructor(props) {
+    super();
+
+  }
   componentDidMount() {
     // var googleMapsClient = googleMaps.createClient({
     //   key: 'AIzaSyBqnQVMGOxQIfwH9jwGmLG8QrPcwYj5uj4'
