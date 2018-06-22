@@ -21,38 +21,8 @@ import { getRecommendations } from '../../modules/recommendations/actions'
 const suggestions = [
   { label: 'Carrot' },
   { label: 'Lettus' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
+  { label: 'Apple' },
+  { label: 'Banana' },
 ].map(suggestion => ({
   value: suggestion.label,
   label: suggestion.label,
@@ -296,54 +266,10 @@ class SearchBar extends React.Component {
             options: suggestions,
           }}
         />
-        
       </div>
     );
   }
 
-  dddd() {
-    const { classes } = this.props;
-    return (
-      <div>
-      <Input
-      fullWidth
-      inputComponent={SelectWrapped}
-      value={this.state.multi}
-      onChange={this.handleChange('multi')}
-      placeholder="Select multiple countries"
-      name="react-select-chip"
-      inputProps={{
-        classes,
-        multi: true,
-        instanceId: 'react-select-chip',
-        id: 'react-select-chip',
-        simpleValue: true,
-        options: suggestions,
-      }}
-    />
-    <TextField
-      fullWidth
-      value={this.state.multiLabel}
-      onChange={this.handleChange('multiLabel')}
-      placeholder="Select multiple countries"
-      name="react-select-chip-label"
-      label="With label"
-      InputLabelProps={{
-        shrink: true,
-      }}
-      InputProps={{
-        inputComponent: SelectWrapped,
-        inputProps: {
-          classes,
-          multi: true,
-          instanceId: 'react-select-chip-label',
-          id: 'react-select-chip-label',
-          simpleValue: true,
-          options: suggestions,
-        },
-      }}
-    /></div>)
-  }
 }
 
 SearchBar.propTypes = {

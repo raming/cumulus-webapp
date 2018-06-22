@@ -1,9 +1,11 @@
 import { Checkbox, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Theme, WithStyles, withStyles } from '@material-ui/core';
 import createStyles from '@material-ui/core/styles/createStyles';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/RemoveCircle';
 import * as React from 'react';
 import { connect } from 'react-redux';
 // import * as TodoActions from '../actions/todo';
+import { removeToWhishList } from '../../modules/wishlist/actions'
+import { getRecommendations, removeRecommendation } from '../../modules/recommendations/actions'
 
 
 
@@ -13,7 +15,7 @@ class WishListTable extends React.Component{
         super(props, context);
     }
 
-    onRowClick(todo: Todo) {
+    onRowClick(todo) {
         if (todo.completed) {
             this.props.actions.uncompleteTodo(todo.id);
         } else {
@@ -39,11 +41,15 @@ class WishListTable extends React.Component{
                                 <TableCell >
                                 {item.text}
                                 </TableCell>
-                                    <TableCell >
+                                    <TableCell  width={48}  >
                                         <IconButton
+                                        className={classes.trash}
                                             aria-label="Delete"
-                                            color="red"
-                                            // onClick={() => this.props.actions.deleteTodo(item.value)}
+                                            color="primary"
+                                            onClick={() => {
+                                                this.props.removeToWhishList(item);
+                                                this.props.getRecommendations();
+                                            } }
                                         >
                                             <DeleteIcon />
                                         </IconButton>
@@ -68,7 +74,7 @@ class WishListTable extends React.Component{
 // </TableRow>
 // </TableHead>
 
-const styles = (theme: Theme) => createStyles({
+const styles = (theme) => createStyles({
     paper: {
         maxWidth: 1000,
         minWidth: '100%',
@@ -77,6 +83,9 @@ const styles = (theme: Theme) => createStyles({
     table: {
         maxWidth: '100%',
     },
+    trash: {
+    //   backgroundColor:'red'  
+    }
 });
 
 function mapStateToProps(state) {
@@ -87,10 +96,8 @@ function mapStateToProps(state) {
     };
   }
   
-  function mapDispatchToProps(dispatch) {
-    return {
-     
-    };
+  const mapDispatchToProps ={
+    getRecommendations, removeToWhishList
   }
   
   export default (withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(WishListTable)));

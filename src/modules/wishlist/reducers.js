@@ -1,9 +1,7 @@
 
 import {
-  PRODUCT_RECOMMEND,
-  PRODUCT_RECOMMEND_SUCCESS,
-  PRODUCT_RECOMMEND_ERROR,
-  WISHLIST_ADD
+  WISHLIST_ADD,
+  WISHLIST_REMOVE
 } from './constants'
 
 
@@ -21,7 +19,14 @@ export const wishlist = (state = initialState, action) => {
         
         return {
           ...state,
-          data: [...state.data.filter(item=>item.value!=payload.value), payload]
+          data: [...state.data.filter(item => item.value != payload.value), payload]
+        }
+      }
+    case WISHLIST_REMOVE:
+      if (payload) {
+        return {
+          ...state,
+          data: [...state.data.filter(item => item.value != payload.value)]
         }
       }
   }

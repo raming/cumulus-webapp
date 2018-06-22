@@ -1,7 +1,23 @@
 
 
 
-import {USER_REGISTER, USER_REGISTER_SUCCESS, USER_REGISTER_ERROR, USER_PREFS_UPDATE} from './constants'
+import {
+  USER_REGISTER,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_ERROR,
+  USER_PREFS_UPDATE,
+  USER_LOCATION_UPDATE
+} from './constants'
+
+export const updateUserLocation = (location) => {
+  return dispatch => {
+    dispatch({
+      type: USER_LOCATION_UPDATE,
+      payload: location
+    });
+  }
+}
+
 export const updateUserPrefs = (prefs) => {
   return dispatch => {
     dispatch({

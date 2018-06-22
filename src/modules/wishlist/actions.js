@@ -5,13 +5,23 @@ import {
   PRODUCT_RECOMMEND,
   PRODUCT_RECOMMEND_SUCCESS,
   PRODUCT_RECOMMEND_ERROR,
-  WISHLIST_ADD
+  WISHLIST_ADD,
+  WISHLIST_REMOVE
 } from './constants'
 
 export const addToWhishList = (data) => {
   return dispatch => {
     dispatch({
       type: WISHLIST_ADD,
+      payload: data
+    });
+  }
+}
+
+export const removeToWhishList = (data) => {
+  return dispatch => {
+    dispatch({
+      type: WISHLIST_REMOVE,
       payload: data
     });
   }

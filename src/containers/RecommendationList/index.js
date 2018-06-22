@@ -1,12 +1,12 @@
 import { Checkbox, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Theme, WithStyles, withStyles } from '@material-ui/core';
 import createStyles from '@material-ui/core/styles/createStyles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@material-ui/icons/AddCircle';
 import * as React from 'react';
 import { connect } from 'react-redux';
 // import * as TodoActions from '../actions/todo';
 import { addToWhishList } from '../../modules/wishlist/actions'
-import { getRecommendations } from '../../modules/recommendations/actions'
+import { getRecommendations, removeRecommendation } from '../../modules/recommendations/actions'
 
 
 class RecommendationList extends React.Component{
@@ -15,7 +15,7 @@ class RecommendationList extends React.Component{
         super(props, context);
     }
 
-    onRowClick(todo: Todo) {
+    onRowClick(todo) {
         if (todo.completed) {
             this.props.actions.uncompleteTodo(todo.id);
         } else {
@@ -42,14 +42,16 @@ class RecommendationList extends React.Component{
                                     <TableCell >
                                         {item.text}
                                         </TableCell>
-                                    <TableCell  >
+                                    <TableCell width={45}  >
                                         
                                         <IconButton
                                             aria-label="Add"
-                                            color="default"
-                                            onClick={() => {
-                                                console.info('selected Product productName', item);
+                                            color="secondary"
+                                            variant="raised"
+                                            onClick={(event) => {
+                                                console.info('selected Product productName', item, this.props.addToWhishList);
                                                 this.props.addToWhishList(item);
+                                                this.props.removeRecommendation(item);
                                                 this.props.getRecommendations();
                                       
                                             }}
@@ -76,14 +78,14 @@ class RecommendationList extends React.Component{
 // </TableRow>
 // </TableHead>
 
-const styles = (theme: Theme) => createStyles({
+const styles = (theme) => createStyles({
     paper: {
         maxWidth: 1000,
-        width: '95%',
-        display: 'inline-block',
+        // width: '95%',
+        display: 'block',
+        padding: 10,
         margin: 'auto',
-        padding: '0px 10px',
-        boxShadow: 'initial'
+        // boxShadow: 'initial'
     },
     table: {
         maxWidth: '100%',
@@ -98,11 +100,12 @@ function mapStateToProps(state) {
     };
   }
   
-  function mapDispatchToProps(dispatch) {
-    return {
-        addToWhishList,
-        getRecommendations
-    };
-  }
+const mapDispatchToProps = {
+    addToWhishList,
+    removeRecommendation,
+    getRecommendations
+}
+
+
   
   export default (withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(RecommendationList)));

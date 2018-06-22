@@ -31,35 +31,35 @@ const styles = {
     margin: '0 10px',
     marginTop: -20
   },
-  locationRadiusLabel: {
+  distancelimitLabel: {
     marginTop: -10
   }
 };
 
 class UserPrefs extends React.Component {
-  state = { timeVsCost: 50, locationRadius:10 };
+  state = { timeSavingRatio: 50, distancelimit:10 };
 
-  handleTimeVsCostChange = (event, timeVsCost) => {
-    let { locationRadius } = this.props;
-    this.props.updateUserPrefs({ timeVsCost, locationRadius })
+  handletimeSavingRatioChange = (event, timeSavingRatio) => {
+    let { distancelimit } = this.props;
+    this.props.updateUserPrefs({ timeSavingRatio, distancelimit })
   };
-  handleLLocationRadiusChange = (event, locationRadius) => {
-    let { timeVsCost } = this.props;
-    this.setState({ locationRadius, timeVsCost })
+  handleLLocationRadiusChange = (event, distancelimit) => {
+    let { timeSavingRatio } = this.props;
+    this.setState({ distancelimit, timeSavingRatio })
   };
   render() {
     const { classes } = this.props;
-    const { locationRadius, timeVsCost } = this.props;
+    const { distancelimit, timeSavingRatio } = this.props;
 
     return (
       <div className={classes.container}>
         <div className={classes.selection}>
           <AttachMoney className={classes.icon} />
           <div className={classes.select} >
-            <Slider min={1} max={100} value={timeVsCost} aria-labelledby="label"
-              onChange={(event, timeVsCost) => {
-                let { locationRadius } = this.props;
-                this.props.updateUserPrefs({ timeVsCost, locationRadius })
+            <Slider min={1} max={100} value={timeSavingRatio} aria-labelledby="label"
+              onChange={(event, timeSavingRatio) => {
+                let { distancelimit } = this.props;
+                this.props.updateUserPrefs({ timeSavingRatio, distancelimit })
               }} />
           </div>
           <AccessTime className={classes.icon} />
@@ -69,14 +69,14 @@ class UserPrefs extends React.Component {
         <div className={classes.selection}>
           <Store className={classes.icon} />
           <div className={classes.select} >
-            <Slider step={1} min={1} max={20} value={locationRadius} aria-labelledby="label"
-              onChange={(event, locationRadius) => {
-                let { timeVsCost } = this.props;
-                this.props.updateUserPrefs({ timeVsCost, locationRadius })
+            <Slider step={1} min={1} max={20} value={distancelimit} aria-labelledby="label"
+              onChange={(event, distancelimit) => {
+                let { timeSavingRatio } = this.props;
+                this.props.updateUserPrefs({ timeSavingRatio, distancelimit })
               }} />
           </div>
           <DirectionsCar className={classes.icon} />
-          <Typography className={classes.locationRadiusLabel}>{locationRadius} KM</Typography>
+          <Typography className={classes.distancelimitLabel}>{distancelimit} KM</Typography>
         </div>
 
       </div>

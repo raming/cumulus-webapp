@@ -11,12 +11,11 @@ import TodoIcon from '@material-ui/icons/FormatListNumbered';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
-import SearchBar from '../SearchBar'
 import withRoot from '../withRoot';
 import Home from '../home';
 import About from '../about';
 
+import { updateUserLocation } from '../../modules/user/actions'
 const history = createBrowserHistory();
 function mapStateToProps(state) {
   return {
@@ -38,7 +37,12 @@ class App extends React.Component {
 
   componentDidMount() {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+      let self = this;
+      navigator.geolocation.getCurrentPosition(function (position){
+        self.props.updateUserLocation({
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        });
         console.info(position.coords.latitude, position.coords.longitude);
       });
     } else {
@@ -62,12 +66,7 @@ class App extends React.Component {
         </List>
         <Divider />
         <List>
-          <ListItem button onClick={() => history.push('/todo')}>
-            <ListItemIcon>
-              {this.renderTodoIcon()}
-            </ListItemIcon>
-            <ListItemText primary="Todo" />
-          </ListItem>
+         
         </List>
         <div style={{ height: 10000 }} />
       </div>
@@ -79,6 +78,7 @@ class App extends React.Component {
           <div className={this.props.classes.appFrame}>
             <AppBar className={this.props.classes.appBar}>
               <Toolbar>
+              <Hidden>
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
@@ -86,13 +86,14 @@ class App extends React.Component {
                   className={this.props.classes.navIconHide}
                 >
                   <MenuIcon />
-                </IconButton>
+                  </IconButton>
+                  </Hidden>
                 <Typography variant="title" color="inherit" noWrap>
-                  Shop with Cloud-Spirit
+                  Store Sprint
                 </Typography>
               </Toolbar>
             </AppBar>
-            <Hidden mdUp>
+            <Hidden>
               <Drawer
                 variant="temporary"
                 anchor={'left'}
@@ -153,7 +154,7 @@ const drawerWidth = 240;
 const styles = (theme) => createStyles({
     root: {
         width: '100%',
-        height: '100vh',
+        // height: '100vh',
         zIndex: 1,
         overflow: 'hidden',
     },
@@ -194,7 +195,10 @@ const styles = (theme) => createStyles({
     },
 });
 
-export default (withRoot(withStyles(styles)(connect(mapStateToProps)(App))));
+const mapDispatchToProps = {
+  updateUserLocation
+}
+export default (withRoot(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(App))));
 
 const Appa = () => (
   <div>

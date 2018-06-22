@@ -6,15 +6,15 @@ import * as React from 'react';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#e5e5e5',
-      main: '#727272',
-      dark: '#363839',
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ff5e50',
-      main: '#e41e26',
-      dark: '#a90000',
+      light: '#C8E6C9',
+      main: '#43A047',
+      dark: '#1B5E20',
       contrastText: '#fff',
     },
   },
