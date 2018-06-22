@@ -14,6 +14,9 @@ class ProductRoute extends React.Component {
         let { distance, duration, total, classes, items, route } = this.props;
         return (
             <Paper className={classes.paper} onClick={() => {
+                var decodedPath = window.google.maps.geometry.encoding.decodePath(route.points);
+               
+                console.info('decodedLevels', decodedPath);
                 console.info('kkk', "https://www.google.com/maps/?path=" + encodeURIComponent(route.points))
                 window.open("https://www.google.com/maps/?path="
                     + encodeURIComponent(route.points), 'location=yes');
